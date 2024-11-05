@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Fragment } from "react";
 import Image from "next/image";
 import Hero from "./_components/Hero";
+import AuthSection from "./(authentication)/AuthSection";
 
 export default async function HomePage() {
   const isLoggedIn: boolean = false;
@@ -9,12 +10,7 @@ export default async function HomePage() {
     return (
       <Fragment>
         <Hero></Hero>
-        <div
-          className="min-h-screen snap-always snap-center flex flex-col lg:flex-row items-center"
-          id="login"
-        >
-          login section
-        </div>
+        <AuthSection></AuthSection>
       </Fragment>
     );
   } else {
