@@ -1,7 +1,8 @@
-"use client"
+"use client";
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 export default function Hero() {
   const [contentDesc, setContentDesc] = useState<string>(
@@ -9,10 +10,13 @@ export default function Hero() {
   );
   return (
     <div
-      className="min-h-screen bg-black pb-[120px] px-10 grid lg:grid-cols-2 gap-y-4 grid-cols-1"
+      className="min-h-screen bg-black pb-[120px] place-content-center px-10 grid lg:grid-cols-2 gap-y-4 grid-cols-1"
       id="hero"
     >
-      <div className=" w-full flex flex-col items-center h-full relative">
+      <motion.div
+      initial={{ y:-50, opacity:0 }} animate={{ y:0, opacity:1, transition:{duration:0.5} }}
+        className="w-full flex flex-col items-center h-full relative"
+      >
         {/* Laptop version */}
         <Link
           href={"/explore"}
@@ -98,8 +102,10 @@ export default function Hero() {
             alt={""}
           ></Image>
         </Link>
-      </div>
-      <div className="text-white w-full h-full justify-start lg:justify-center flex flex-col">
+      </motion.div>
+      <motion.div
+      initial={{ y:-50, opacity:0 }} animate={{ y:0, opacity:1, transition:{duration:0.5} }}
+      className="text-white w-full h-full justify-start lg:justify-center flex flex-col">
         <h2 className="text-5xl md:text-7xl font-bold">HoYa!</h2>
         <h5 className="text-2xl md:text-4xl font-semibold mb-4 capitalize">
           Looking for these kind of things?
@@ -111,7 +117,7 @@ export default function Hero() {
         >
           Click here
         </Link>
-      </div>
+      </motion.div>
     </div>
   );
 }
