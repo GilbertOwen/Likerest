@@ -10,7 +10,7 @@ export default function Navbar() {
   const pathname = usePathname();
   return (
     <div className="py-4 snap-none px-6 gap-x-4 flex flex-row items-center justify-between border-2 fixed top-0 w-full z-[500] bg-white">
-      <h1 className="text-3xl font-bold underline underline-offset-4 py-1.5">
+      <h1 className="text-3xl font-bold py-1.5">
         LIKEREST
       </h1>
       <div className="w-full px-4 relative hidden md:flex">
