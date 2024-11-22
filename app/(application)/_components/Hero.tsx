@@ -15,7 +15,7 @@ export default function Hero() {
         backgroundSize: "cover",
         backgroundPosition: "bottom",
       }}
-      className="relative before:absolute before:inset-0 before:bg-black before:bg-opacity-20 before:content-[''] min-h-screen bg-black pb-[120px] place-content-center px-10 grid lg:grid-cols-2 gap-y-4 grid-cols-1"
+      className="relative before:absolute before:inset-0 before:bg-black before:bg-opacity-40 before:content-[''] after:absolute after:content-[''] after:inset-0 after:bg-gradient-to-b after:from-transparent after:via-white/[0.02] after:to-white after:h-[100%] after:bottom-0 min-h-screen bg-black pb-[120px] place-content-center px-10 grid lg:grid-cols-2 gap-y-4 grid-cols-1"
       id="hero"
     >
       <motion.div
@@ -112,7 +112,7 @@ export default function Hero() {
       <motion.div
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1, transition: { duration: 0.5 } }}
-        className="text-[rgba(255,255,255,0.8)] relative z-20 w-full h-full justify-start lg:justify-center flex flex-col"
+        className="text-[rgba(255,255,255,0.9)] relative z-20 w-full h-full justify-start lg:justify-center flex flex-col"
       >
         <h2 className="text-5xl md:text-7xl font-bold mb-2">HoYa!</h2>
         <h5 className="text-2xl md:text-4xl font-semibold mb-4 capitalize">
@@ -121,7 +121,7 @@ export default function Hero() {
         <p className="mb-8 text-[14px] md:text-base">{contentDesc}</p>
         <Link
           href={"/explore"}
-          className="text-lg md:text-xl w-fit transition-all hover:bg-[rgba(255,255,255,.5)] rounded-full font-bold px-6 capitalize py-2 bg-[rgba(255,255,255,0.8)] text-black"
+          className="text-lg md:text-xl w-fit transition-all hover:bg-[rgba(0,0,0,.5)] rounded-full font-semibold px-6 capitalize py-2 bg-[rgba(0,0,0,0.9)] text-white"
         >
           Click here
         </Link>
