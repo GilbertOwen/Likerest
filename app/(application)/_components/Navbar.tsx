@@ -68,7 +68,7 @@ export default function Navbar() {
         } transition-all`}
       >
         <div className="px-4 py-4 flex flex-row justify-between">
-          <h1 className="text-3xl font-bold underline underline-offset-4 py-1.5">
+          <h1 className="text-3xl font-bold py-1.5">
             LIKEREST
           </h1>
           <GiHamburgerMenu
