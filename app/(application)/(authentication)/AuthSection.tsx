@@ -25,7 +25,7 @@ export default function AuthSection() {
             onClick={() => {
               setAuthType("register");
             }}
-            className={`text-xl px-4 py-1.5 border-2 ${
+            className={`text-xl px-4 py-1.5 rounded-md border-2 ${
               authType == "register"
                 ? "bg-black text-white"
                 : "text-black bg-white"
@@ -35,7 +35,7 @@ export default function AuthSection() {
           </button>
           <button
             onClick={() => setAuthType("login")}
-            className={`text-xl px-4 py-1.5 border-black ${
+            className={`text-xl px-4 py-1.5 rounded-md border-black ${
               authType == "login"
                 ? "bg-black text-white"
                 : "text-black bg-white"
@@ -44,7 +44,7 @@ export default function AuthSection() {
             Login
           </button>
         </div>
-        <div className="w-full h-fit border-2 py-4 px-4 border-black">
+        <div className="w-full h-fit border-2 py-4 px-4 rounded-md border-black">
           {authType == "login" ? <LoginAuth /> : <RegisterAuth />}
         </div>
       </motion.div>
