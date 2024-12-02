@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import { Analytics } from "@vercel/analytics/react"
+import { Analytics } from "@vercel/analytics/react";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
+import dotenv from "dotenv";
+dotenv.config()
 
 const poppins = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -21,8 +26,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={poppins.className + ` overflow-x-hidden scroll-smooth relative m-0 p-0`}>{children}
-        <Analytics/>
+      <body
+        className={
+          poppins.className +
+          ` overflow-x-hidden scroll-smooth relative m-0 p-0`
+        }
+      >
+        {children}
+        <Analytics />
+        <ToastContainer />
       </body>
     </html>
   );
