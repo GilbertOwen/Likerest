@@ -11,7 +11,7 @@ export default function Hero() {
   return (
     <div
       style={{
-        backgroundImage: "url('/mondstat.jpeg')",
+        backgroundImage: "url('/mondstat2.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "bottom",
       }}
