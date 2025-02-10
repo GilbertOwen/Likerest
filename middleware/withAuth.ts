@@ -20,10 +20,8 @@ export default function withAuth(
     const authToken: RequestCookie | undefined = cookiess.get("auth");
     if (requireCheck.includes(pathname)) {
       if (authToken) {
-        const token = await axios.post(
-          "http://localhost:3030/api/auth/me",
-
-          {},
+        const token = await fetch(
+          `${process.env.NEXT_PUBLIC_DOMAIN_NAME}/auth/me`,
           {
             headers: {
               Authorization: authToken.value,
@@ -32,13 +30,14 @@ export default function withAuth(
         );
         if (token.status === 401) {
           const url = new URL(pathname, req.url);
-          cookiess.delete('auth');
+          cookiess.delete("auth");
           url.searchParams.set("callbackUrl", encodeURI(req.url));
           return NextResponse.redirect(url);
         }
       } else {
         const url = new URL("/", req.url);
-        cookiess.delete('auth');
+        cookiess.delete("auth");
+        url.searchParams.set("callbackUrl", encodeURI(req.url));
         return NextResponse.redirect(url);
       }
     }
