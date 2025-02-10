@@ -17,17 +17,13 @@ export default async function HomePage() {
       </>
     );
   }
+  console.log(authToken);
 
-  let response: any;
-  try {
-    response = await axios.get(`${process.env.NEXT_INTERNAL_API_URL}/api/me`, {
+  const response = await fetch(`${process.env.NEXT_INTERNAL_API_URL}/api/me`, {
       headers: {
         Authorization: authToken.value,
       },
     });
-  } catch (error) {
-    console.error("Authentication check failed", error);
-  }
   if (response?.status == 200) {
     return redirect("/explore");
   }
