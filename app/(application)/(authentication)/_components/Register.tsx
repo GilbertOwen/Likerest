@@ -1,6 +1,5 @@
 "use client";
-import { useFormState } from "react-dom";
-import { useEffect, useRef } from "react";
+import { useActionState, useEffect, useRef } from "react";
 import { toast } from "react-toastify";
 import registerUser from "../_actions/register-user";
 
@@ -9,7 +8,7 @@ interface RegisterAuthProps {
 }
 
 export default function RegisterAuth({ changeState }: RegisterAuthProps) {
-  const [state, formAction] = useFormState(registerUser, {
+  const [state, formAction] = useActionState(registerUser, {
     status: "",
     message: "",
     errors: {},
