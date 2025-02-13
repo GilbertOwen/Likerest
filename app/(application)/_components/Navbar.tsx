@@ -1,35 +1,54 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
-import axios from "axios";
-import Cookies from "js-cookie";
 import { CgProfile } from "react-icons/cg";
 
-export default function Navbar({
-  isAuthenticated,
-}: {
-  isAuthenticated: Boolean;
-}) {
+export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+  const [isLoading, setIsLoading] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState<Boolean>(false);
+  // const [firstTime, setFirstTime] = useState<Boolean>(false);
+
+  const checkAuth = async () => {
+    setIsLoading(true);
+    const response = await fetch(`/api/getCookies`);
+    setIsAuthenticated(response.ok);
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    checkAuth();
+  }, [pathname]);
 
   return (
-    <div className="py-4 snap-none px-6 gap-x-4 flex flex-row items-center justify-between border-2 fixed top-0 w-full z-[500] bg-white">
+    <div className="py-4 snap-none px-6 gap-x-4 flex flex-row items-center justify-between border-2 fixed top-0 w-full z-[10] bg-white">
+      {/* {isLoading && (
+        <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center bg-white bg-opacity-50">
+          <div className="w-10 h-10 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
+        </div>
+      )} */}
+
       <Link
         href={isAuthenticated ? "/explore" : "/"}
-        className="text-[34px] font-bold py-1"
+        className={`text-[34px] font-bold py-1 ${
+          isLoading ? "pointer-events-none " : ""
+        }`}
       >
         LIKEREST
       </Link>
+
       <div className="w-full px-4 relative hidden md:flex">
         {pathname === "/" ? (
           <Link
             href={"/explore"}
-            className="px-4 py-2 font-semibold rounded-full bg-[rgba(0,0,0,0.8)] hover:bg-black text-white"
+            className={`px-4 py-2 font-semibold rounded-full bg-[rgba(0,0,0,0.8)] hover:bg-black text-white ${
+              isLoading ? "pointer-events-none " : ""
+            }`}
           >
             Explore
           </Link>
@@ -48,21 +67,13 @@ export default function Navbar({
         )}
       </div>
 
-      {/* Desktop version */}
+      {/* Desktop Navbar */}
       <ul className="hidden md:flex flex-row items-center gap-x-4">
-        {/* <Link
-          href={isAuthenticated ? "/explore" : "/"}
-          className={`px-4 py-2 font-semibold rounded-full ${
-            pathname === "/" ? "bg-black text-white" : "text-black"
-          }`}
-        >
-          Home
-        </Link> */}
         <Link
           href={"/explore"}
           className={`px-4 py-2 hover:bg-black hover:text-white rounded-full transition-all font-semibold ${
             pathname === "/explore" ? "bg-black text-white" : "text-black"
-          }`}
+          } ${isLoading ? "pointer-events-none " : ""}`}
         >
           Explore
         </Link>
@@ -71,41 +82,38 @@ export default function Navbar({
             href={"/create-post"}
             className={`px-4 py-2 hover:bg-black hover:text-white rounded-full transition-all font-semibold ${
               pathname === "/create-post" ? "bg-black text-white" : "text-black"
-            }`}
+            } ${isLoading ? "pointer-events-none " : ""}`}
           >
             Create
           </Link>
         )}
       </ul>
+
       {!isAuthenticated && (
         <ul className="hidden md:flex flex-row items-center gap-x-2">
           <Link
             href={"/#login"}
-            className="px-4 py-2 rounded-full w-full text-nowrap transition-all font-semibold bg-white border-2 border-black"
+            className={`px-4 py-2 rounded-full w-full text-nowrap transition-all font-semibold border-2 border-black ${
+              isLoading ? "pointer-events-none " : "bg-white"
+            }`}
           >
             Sign Up
           </Link>
         </ul>
       )}
+
       {isAuthenticated && (
         <ul className="hidden md:flex flex-row items-center gap-x-2 mx-2">
-          <CgProfile size={40}  className="cursor-pointer hover:bg-black bg-white rounded-full text-black hover:text-white border-black outline-black"/>
+          <Link href={"/profile"}>
+            <CgProfile
+              size={40}
+              className="cursor-pointer hover:bg-black bg-white rounded-full text-black hover:text-white border-black outline-black"
+            />
+          </Link>
         </ul>
       )}
-      {/* user.profilePicture && !imageError ? (
-          <img
-            src={user.profilePicture}
-            width={25}
-            height={25}
-            className="w-[25px] h-[25px] object-cover rounded-full drop-shadow-[0_0px_10px_rgba(255,255,255,255.25)] shadow-white"
-            alt="Profile Picture"
-            onError={handleImageError}
-          />
-        ) : ( */}
 
-      {/* )} */}
-
-      {/* Mobile version of navbar */}
+      {/* Mobile Navbar */}
       <ul
         className={`md:hidden flex flex-col bg-white min-h-screen sm:border-l-2 w-full sm:w-[50%] overflow-hidden top-0 right-0 fixed z-10 ${
           isOpen ? "translate-x-0" : "translate-x-full sm:translate-x-[100%]"
@@ -134,7 +142,7 @@ export default function Navbar({
           href={"/"}
           className={`px-4 py-4 font-semibold ${
             pathname === "/" ? "bg-black text-white" : "text-black"
-          }`}
+          } ${isLoading ? "pointer-events-none " : ""}`}
         >
           Home
         </Link>
@@ -142,7 +150,7 @@ export default function Navbar({
           href={"/explore"}
           className={`px-4 py-4 hover:bg-black hover:text-white transition-all font-semibold ${
             pathname === "/explore" ? "bg-black text-white" : "text-black"
-          }`}
+          } ${isLoading ? "pointer-events-none " : ""}`}
         >
           Explore
         </Link>
@@ -150,8 +158,8 @@ export default function Navbar({
           <Link
             href={"/create-post"}
             className={`px-4 py-4 hover:bg-black hover:text-white transition-all font-semibold ${
-              pathname === "/explore" ? "bg-black text-white" : "text-black"
-            }`}
+              pathname === "/create-post" ? "bg-black text-white" : "text-black"
+            } ${isLoading ? "pointer-events-none " : ""}`}
           >
             Create
           </Link>
@@ -161,22 +169,14 @@ export default function Navbar({
             href={"/#login"}
             className={`px-4 py-4 hover:bg-black hover:text-white transition-all font-semibold ${
               pathname === "/explore" ? "bg-black text-white" : "text-black"
-            }`}
-          >
-            Sign Up
-          </Link>
-        )}
-        {isAuthenticated && (
-          <Link
-            href={"/#login"}
-            className={`px-4 py-4 hover:bg-black hover:text-white transition-all font-semibold ${
-              pathname === "/explore" ? "bg-black text-white" : "text-black"
-            }`}
+            } ${isLoading ? "pointer-events-none " : ""}`}
           >
             Sign Up
           </Link>
         )}
       </ul>
+
+      {/* Hamburger Menu */}
       <GiHamburgerMenu
         className={`${
           isOpen ? "hidden md:flex" : "md:hidden flex"
