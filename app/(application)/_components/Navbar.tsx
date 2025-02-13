@@ -88,6 +88,33 @@ export default function Navbar() {
           </Link>
         )}
       </ul>
+      {!isAuthenticated && (
+        <ul className="hidden md:flex flex-row items-center gap-x-2">
+          <Link
+            href={"/#login"}
+            className="px-4 py-2 rounded-full w-full text-nowrap transition-all font-semibold bg-white border-2 border-black"
+          >
+            Sign Up
+          </Link>
+        </ul>
+      )}
+      {isAuthenticated && (
+        <ul className="hidden md:flex flex-row items-center gap-x-2 mx-2">
+          <CgProfile size={40}  className="cursor-pointer hover:bg-black bg-white rounded-full text-black hover:text-white border-black outline-black"/>
+        </ul>
+      )}
+      {/* user.profilePicture && !imageError ? (
+          <img
+            src={user.profilePicture}
+            width={25}
+            height={25}
+            className="w-[25px] h-[25px] object-cover rounded-full drop-shadow-[0_0px_10px_rgba(255,255,255,255.25)] shadow-white"
+            alt="Profile Picture"
+            onError={handleImageError}
+          />
+        ) : ( */}
+
+      {/* )} */}
 
       {!isAuthenticated && (
         <ul className="hidden md:flex flex-row items-center gap-x-2">
