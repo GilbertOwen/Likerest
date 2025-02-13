@@ -40,6 +40,23 @@ export default function withAuth(
         url.searchParams.set("callbackUrl", encodeURI(req.url));
         return NextResponse.redirect(url);
       }
+    }else{
+      if (authToken) {
+        const token = await fetch(
+          `${process.env.NEXT_PUBLIC_DOMAIN_NAME}/auth/me`,
+          {
+            headers: {
+              Authorization: authToken.value,
+            },
+          }
+        );
+        if (token.status === 401) {
+          const url = new URL(pathname, req.url);
+          cookiess.delete("auth");
+          url.searchParams.set("callbackUrl", encodeURI(req.url));
+          return NextResponse.redirect(url);
+        }
+      }
     }
     return middleware(req, next);
   };
